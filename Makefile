@@ -1,54 +1,47 @@
 ##
-## Makefile for  in /repo/Epitech/Empty_Project
+## Makefile for myutils in /home/poirie-n/blinux/poirie_n/repo/MyProjects/C_Lib_MyUtils
 ## 
 ## Made by Nathan Poirier
-## Login   <poirie_n@epitech.net>
+## Login   <poirie-n@epitech.net>
 ## 
-## Started on  Tue Feb 10 16:21:13 2015 Nathan Poirier
-## Last update Wed Apr 15 19:22:38 2015 Onillon Lucas
+## Started on  Wed Dec 10 13:08:35 2014 Nathan Poirier
+## Last update Sun Feb 22 02:12:28 2015 Nathan Poirier
 ##
 
-SRCS		= btree_move.c		\
-		  btree_init.c		\
-		  btree_reset.c		\
-		  btree_get.c		\
-		  btree_node_add.c	\
-		  btree_exec.c		\
-		  main.c
+NAME	= libbtree.a
 
-OBJS		= $(addprefix src/, $(SRCS:.c=.o))
+SRCS	= btree_exec.c		\
+	  btree_get.c		\
+	  btree_init.c		\
+	  btree_move.c		\
+	  btree_node_add.c	\
+	  btree_reset.c
 
-NAME		= Btree
+OBJS	= $(addprefix source/, $(SRCS:.c=.o))
 
-RM		= rm -f
+CC	= gcc
 
-CC		= gcc -g3 # WARNING -g3 #
+CFLAGS	+= -O3
+CFLAGS	+= -W -Wall -Wextra
+CFLAGS	+= -Wno-unused-parameter -Wno-variadic-macros
+CFLAGS	+= -ansi -pedantic
+CFLAGS	+= -Iinclude/
 
-LIBS		=
+LDFLAGS	=
 
-CFLAGS		= -W -Wall -Wextra -Werror
-CFLAGS		+= -Wno-variadic-macros -Wno-unused-parameter
-CFLAGS		+= -pedantic -ansi
-CFLAGS		+= -Ofast
-CFLAGS		+= -Iinclude/
-CFLAGS		+= $(LIBS)
-
-LDFLAGS		= $(LIBS)
-
-LIB_MYUTILS	= lib/C_Lib_MyUtils/libmyutils.a
-LIB_MYUTILS_MK	= make -C lib/C_Lib_MyUtils/
+RM	= rm -f
 
 $(NAME):	$(OBJS)
-		$(CC) $(OBJS) -o $(NAME) $(LDFLAGS)
+	ar rc $(NAME) $(OBJS)
 
 all:		$(NAME)
 
 clean:
-		$(RM) $(OBJS)
+	$(RM) $(OBJS)
 
 fclean:		clean
-		$(RM) $(NAME)
+	$(RM) $(NAME)
 
 re:		fclean all
 
-.PHONY: re fclean clean all
+.PHONY: all clean fclean re
